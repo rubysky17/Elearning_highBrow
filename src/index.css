@@ -1,0 +1,19 @@
+:root {
+    --black-color: #333;
+    --white-color: #fff;
+    --blue-color: #72b6af;
+    --red-color: #ff6666;
+    --bg-color: #f9f9f9;
+    --fs-1: 13px;
+    --fs-2: 15px;
+    --fs-3: 36px;
+    --fw-1: 300;
+    --fw-2: 400;
+    --fw-3: 700;
+    --line-height: 22px;
+}
+
+@font-face {
+    font-family: open-sans;
+    src: url(./Fonts/OpenSans-Regular.ttf);
+}

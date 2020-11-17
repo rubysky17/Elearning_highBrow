@@ -1,0 +1,46 @@
+.comment-card_img img {
+    border-radius: 50%;
+}
+
+.comment-card_text {
+    margin-left: 10px;
+}
+
+.comment-card_intro {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    padding: 5px;
+}
+
+.comment-card_text p {
+    color: var(--black-color);
+    font-size: 19px;
+    font-style: normal;
+    font-weight: bold;
+    letter-spacing: 1px;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.comment-card_text span {
+    font-size: 16px;
+    font-style: italic;
+    color: #818181;
+}
+
+.comment-card_comment {
+    font-size: 17px;
+    line-height: 30px;
+    font-weight: normal;
+    font-style: italic;
+    padding: 20px;
+    margin: 0;
+}
+
+@media only screen and (max-width: 480px) {
+    .comment-card_text {
+        text-align: center;
+    }
+}

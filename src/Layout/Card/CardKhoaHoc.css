@@ -1,0 +1,52 @@
+.ant-card {
+    margin: 10px!important;
+}
+
+.ant-card-cover img {
+    width: 240px;
+    height: 140px!important;
+}
+
+.ant-card-meta-detail .ant-card-meta-title {
+    font-weight: bold!important;
+    line-height: 1.2;
+    font-size: 18px;
+}
+
+.ant-card-meta-detail .ant-card-meta-description {
+    height: 110px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+}
+
+.card_viewer {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+}
+
+.card_rating {
+    display: flex;
+    align-items: center;
+}
+
+.card-rating_num {
+    margin-right: 5px;
+    color: #be5a0e;
+    font-weight: 700;
+    line-height: 1.2;
+    font-size: 14px;
+}
+
+.card-button {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button-heart {
+    display: flex;
+    justify-content: center;
+}

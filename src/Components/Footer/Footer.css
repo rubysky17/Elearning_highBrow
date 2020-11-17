@@ -1,0 +1,110 @@
+footer {
+    background-color: var(--bg-color);
+}
+
+.footer {
+    width: 70%;
+    margin: 0 auto;
+    margin-top: 50px;
+    color: #838f93;
+    padding-top: 50px;
+}
+
+.footer-left img {
+    width: 150px;
+    display: block;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.footer-left p {
+    font-size: 15px;
+    line-height: 25px;
+}
+
+.footer-middle p {
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    height: 50px;
+}
+
+.footer-middle ul li {
+    list-style: none;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+.footer-middle ul {
+    padding: 0;
+}
+
+.footer-right {
+    justify-content: center;
+}
+
+.footer-right p {
+    margin: 20px 0;
+    font-size: 18px;
+    font-weight: bold;
+    height: 50px;
+}
+
+.footer-right span {
+    font-size: 15px;
+    line-height: 25px;
+}
+
+.footer-right input {
+    margin: 30px 0;
+}
+
+.footer-btn a {
+    color: var(--white-color);
+    background-color: var(--red-color);
+    padding: 14px 23px;
+    border-radius: 4px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: var(--fs-1);
+    transition: all 0.5s;
+}
+
+.footer-btn a:hover {
+    color: var(--white-color);
+    background-color: #d94545;
+}
+
+.footer-outro {
+    width: 100%;
+    padding: 20px;
+    margin-left: 0;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--bg-color);
+}
+
+.footer-outro p {
+    color: #262626;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+.footer-outro_text {
+    width: 70%;
+}
+
+/* AntDesign edit css */
+
+.footer-search {
+    margin-top: 50px;
+}
+
+.footer-search .ant-input-group .ant-input {
+    margin-top: 0;
+}

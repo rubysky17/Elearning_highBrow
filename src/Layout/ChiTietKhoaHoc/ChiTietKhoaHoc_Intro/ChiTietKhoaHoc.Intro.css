@@ -1,0 +1,77 @@
+.chitietkhoahoc-intro {
+    color: white;
+    margin-top: 30px;
+}
+
+.intro-tenkhoahoc {
+    color: white;
+    font-weight: bold;
+    line-height: 1.2;
+    letter-spacing: 4px;
+}
+
+.intro-danhgia {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.intro-danhgia p {
+    margin: 0;
+}
+
+.intro-label {
+    font-size: 12px;
+    font-weight: bold;
+    background-color: tomato;
+    height: 26px;
+    border-radius: 7px;
+    padding: 0 5px;
+    display: flex;
+    align-items: center;
+    margin-right: 5px;
+}
+
+.intro-mota {
+    font-size: 19px;
+    line-height: 1.4;
+    height: 104px;
+    overflow-y: hidden;
+    text-overflow: ellipsis;
+    margin: 20px 0;
+}
+
+.MuiBox-root-1 {
+    margin-right: 5px;
+}
+
+.intro-img {
+    margin: 20px 0;
+}
+
+.intro-img span {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.intro-img_taikhoan {
+    color: #8ed1dc;
+}
+
+.intro-img img {
+    border-radius: 50%;
+    margin-right: 10px;
+    width: 70px;
+    height: 70px;
+}
+
+.intro-date p {
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+}
+
+.intro-date p span {
+    margin-right: 5px;
+}

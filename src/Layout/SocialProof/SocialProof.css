@@ -1,0 +1,21 @@
+.social-proof {
+    width: 70%;
+    margin: 80px auto;
+}
+
+.social-proof h3 {
+    text-align: center;
+    font-style: normal;
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.social-proof_img {
+    width: 200px;
+    opacity: 0.7;
+    transition: all 0.4s;
+}
+
+.social-proof_img:hover {
+    opacity: 1;
+}

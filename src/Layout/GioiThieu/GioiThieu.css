@@ -1,0 +1,44 @@
+.gioiThieu {
+    background-attachment: fixed;
+    background-image: url("https://4cawmi2va33i3w6dek1d7y1m-wpengine.netdna-ssl.com/wp-content/uploads/2017/11/Home-Page-2018-01.png");
+    height: 500px;
+    background-position: center;
+    background-size: cover;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.gioiThieu_text {
+    color: #fff;
+}
+
+.gioiThieu_text p {
+    font-size: var(--fs-3);
+    margin: 20px 10px;
+}
+
+.gioiThieu_text span {
+    font-size: 22px;
+}
+
+.gioiThieu-btn {
+    margin-top: 50px;
+}
+
+.gioiThieu-btn a {
+    color: var(--white-color);
+    background-color: var(--red-color);
+    padding: 14px 23px;
+    border-radius: 4px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    font-size: var(--fs-1);
+    transition: all 0.5s;
+}
+
+.gioiThieu-btn a:hover {
+    color: var(--white-color);
+    background-color: #d94545;
+}
