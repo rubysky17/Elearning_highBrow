@@ -95,13 +95,16 @@
     padding: 10px 0;
 }
 
-@media only screen and (max-width: 640px) {
+@media only screen and (max-width: 600px) {
     .navbar-collapse {
         background-color: #fff;
         width: 100%!important;
         position: absolute;
         top: 80%;
         border-radius: 10px;
+    }
+    .navbar-collapse {
+        width: 510px!important;
     }
     .navbar-nav li {
         margin-top: 5px;
@@ -115,5 +118,29 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-right: 0;
+    }
+    .iconFlex {
+        display: flex;
+        align-items: center;
+        margin: 0;
+    }
+}
+
+@media only screen and (max-width: 420px) {
+    .navbar-collapse {
+        width: 375px!important;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .navbar-collapse {
+        width: 340px!important;
+    }
+}
+
+@media only screen and (max-width: 330px) {
+    .navbar-collapse {
+        width: 280px!important;
     }
 }

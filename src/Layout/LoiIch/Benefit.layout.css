@@ -1,11 +1,6 @@
-.benefits {
-    width: 70%;
-    margin: 0 auto;
-    text-align: center;
-    margin-top: 80px;
-}
-
 .benefits-intro {
+    width: 80%;
+    margin: 0 auto;
     font-style: normal;
     font-weight: 700;
     text-transform: capitalize;
@@ -17,13 +12,6 @@
 
 .benefits-list {
     margin-top: 50px;
-    display: flex;
-    justify-content: center;
-}
-
-.benefit-item {
-    width: 30%;
-    margin: 0 30px 100px;
 }
 
 .benefit-item p {
@@ -41,4 +29,10 @@
     font-size: var(--fs-2);
     font-weight: 400;
     line-height: 1.5;
+}
+
+@media only screen and (max-width: 600px) {
+    .benefit-item {
+        margin-bottom: 30px;
+    }
 }

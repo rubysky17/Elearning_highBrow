@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Navbar.css";
 import logo from "../../Assets/img/logo@2x.png";
+import { CaretDownOutlined } from "@ant-design/icons";
 import { NavLink } from "react-router-dom";
 import NavbarDangNhap from "./NavbarDangNhap/NavbarDangNhap";
 import NavbarNguoiDung from "./NavbarNguoiDung/NavbarNguoiDung";
@@ -17,13 +18,13 @@ export default function Navbar() {
   };
   let tenTaiKhoan = useSelector((state) => state.NguoiDungReducer.userLocal);
   return (
-    <nav className="navbar navbar-expand-sm container border-nav">
+    <nav className="navbar navbar-expand-md container border-nav">
       <NavLink className="navbar-brand" to="/">
         <img src={logo} className="img-fluid navbar-img" alt={logo} />
       </NavLink>
       {localStorage.getItem(USER_LOGIN) ? (
         <div
-          className="navbar-toggler d-lg-none"
+          className="navbar-toggler d-lg-none iconFlex"
           data-toggle="collapse"
           data-target="#collapsibleNavId"
           aria-controls="collapsibleNavId"
@@ -33,6 +34,7 @@ export default function Navbar() {
           <div className="nguoidung-info_hinhAnh">
             {tenTaiKhoan.hoTen?.slice(0, 1).toUpperCase()}
           </div>
+          <CaretDownOutlined />
         </div>
       ) : (
         <MenuOutlined

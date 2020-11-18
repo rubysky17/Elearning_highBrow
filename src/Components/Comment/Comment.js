@@ -29,13 +29,13 @@ const mangComment = [
 
 export default function Comment() {
   return (
-    <div className="comment-component">
+    <div className="container mt-5">
       <div className="row">
-        <h2 className="mb-4">Nhận xét của học sinh</h2>
+        <h2 className="mb-5 comment_header">Nhận xét của học sinh</h2>
       </div>
       <div className="row">
         {mangComment.map((comment, index) => {
-          return <CardComment key={index} comment={comment} className="mx-2" />;
+          return <CardComment key={index} comment={comment} />;
         })}
       </div>
     </div>

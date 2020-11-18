@@ -1,46 +1,61 @@
-.comment-card_img img {
+.cardComment {
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.07) 0px 1px 1px, rgba(0, 0, 0, 0.07) 0px 2px 2px, rgba(0, 0, 0, 0.07) 0px 4px 4px, rgba(0, 0, 0, 0.07) 0px 8px 8px, rgba(0, 0, 0, 0.07) 0px 16px 16px;
+    padding: 20px;
+}
+
+.cardComment_img {
     border-radius: 50%;
 }
 
-.comment-card_text {
-    margin-left: 10px;
-}
-
-.comment-card_intro {
+.cardComment_info {
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    margin-top: 15px;
-    padding: 5px;
 }
 
-.comment-card_text p {
-    color: var(--black-color);
-    font-size: 19px;
-    font-style: normal;
+.cardComment_name {
+    font-size: 20px;
     font-weight: bold;
-    letter-spacing: 1px;
-    line-height: 1.4;
-    margin: 0;
+    margin-bottom: 10px;
 }
 
-.comment-card_text span {
-    font-size: 16px;
+.cardComment_work {
+    font-size: 15px;
+}
+
+.cardComment_comment {
+    margin-bottom: 0;
+    margin-top: 15px;
+    height: 120px;
     font-style: italic;
-    color: #818181;
-}
-
-.comment-card_comment {
-    font-size: 17px;
     line-height: 30px;
-    font-weight: normal;
-    font-style: italic;
-    padding: 20px;
-    margin: 0;
+    font-size: 15px;
 }
 
-@media only screen and (max-width: 480px) {
-    .comment-card_text {
-        text-align: center;
+@media only screen and (max-width: 1024px) {
+    .cardComment_comment {
+        height: 150px;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .cardComment_comment {
+        height: 60px;
+    }
+    .cardComment {
+        margin-bottom: 50px;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .cardComment_comment {
+        height: 90px;
+    }
+}
+
+@media only screen and (max-width: 500px) {
+    .cardComment_comment {
+        height: 120px;
     }
 }

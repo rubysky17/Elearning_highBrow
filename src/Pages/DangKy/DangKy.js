@@ -27,7 +27,6 @@ function DangKy(props) {
     e.preventDefault();
     dispatch(nguoiDungDangKyAction(props.values, history));
   };
-  console.log("props.values:", props.values);
   return (
     <Form className="my-5" onSubmit={handleSubmit}>
       <Grid container justify="center" alignContent="center">

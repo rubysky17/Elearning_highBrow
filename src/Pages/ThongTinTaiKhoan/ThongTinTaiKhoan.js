@@ -4,6 +4,7 @@ import { Select } from "antd";
 import { NavLink, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import swal from "sweetalert";
 //component
 import KhoaHoc from "./KhoaHoc/KhoaHoc";
 import TaiKhoan from "./TaiKhoan/TaiKhoan";
@@ -45,38 +46,74 @@ export default function ThongTinTaiKhoan() {
   const dispatch = useDispatch();
   //useEffect gọi action lấy thông tin người dùng
   let userNow = useSelector((state) => state.NguoiDungReducer?.userLocal);
-  let thongTinTaiKhoan = useSelector(
-    (state) => state.NguoiDungReducer?.thongTinTaiKhoan
-  );
+  useEffect(() => {
+    dispatch(layThongTinNguoiDungAction(userNow.taiKhoan));
+  }, []);
+
+  const [password, setpassword] = useState("");
+  const [passwordChange1, setpasswordChange1] = useState("");
+  const [passwordChange2, setpasswordChange2] = useState("");
+
   const [userChange, setUserChange] = useState({
     taiKhoan: userNow.taiKhoan,
-    matKhau: userNow?.matKhau,
+    matKhau: "",
     hoTen: userNow.hoTen,
     soDT: userNow.soDT,
     maLoaiNguoiDung: userNow.maLoaiNguoiDung,
     maNhom: userNow.maNhom,
     email: userNow.email,
   });
-  useEffect(() => {
-    dispatch(layThongTinNguoiDungAction(userNow.taiKhoan));
-  }, [userChange]);
+
   const history = useHistory();
 
   let mangKHGhiDanh = useSelector(
     (state) => state.NguoiDungReducer.mangKhoaHocGhiDanh
   );
-  console.log("mangKHGhiDanh:", mangKHGhiDanh);
+
+  var thongTinTaiKhoan = useSelector(
+    (state) => state.NguoiDungReducer.thongTinTaiKhoan
+  );
 
   const handleChange = (e) => {
     let { value, name } = e.target;
+
+    if (name === "matKhau") {
+      setpassword(value);
+    }
+    if (name === "matKhauMoi1") {
+      setpasswordChange1(value);
+    }
+    if (name === "matKhauMoi2") {
+      setpasswordChange2(value);
+    }
     setUserChange({
       ...userChange,
       [name]: value,
     });
   };
+  const doiMatKhau = (matKhau) => {
+    dispatch(nguoiDungChinhSuaAction(userChange, history, matKhau));
+  };
 
-  const handleSubmit = () => {
-    dispatch(nguoiDungChinhSuaAction(userChange, history));
+  const handleSubmit = (e) => {
+    dispatch(
+      nguoiDungChinhSuaAction(userChange, history, thongTinTaiKhoan.matKhau)
+    );
+  };
+  const handlePassword = () => {
+    if (password === thongTinTaiKhoan.matKhau) {
+      if (passwordChange1 == null || passwordChange1 == "") {
+        swal("Thất bại", "Mật khẩu không được để trống", "warning");
+      } else if (passwordChange2 == null || passwordChange2 == "") {
+        swal("Thất bại", "Mật khẩu không được để trống", "warning");
+      } else if (passwordChange1 === passwordChange2) {
+        doiMatKhau(passwordChange2);
+      } else {
+        swal("Thất bại", "Mật khẩu không đúng", "warning");
+      }
+    } else {
+      swal("Thất bại", "Mật khẩu cũ không đúng", "warning");
+    }
   };
   const huyGhiDanhKhoaHoc = (taiKhoan, maKhoaHoc) => {
     dispatch(huyDangKyKhoaHocAction(taiKhoan, maKhoaHoc));
@@ -123,6 +160,17 @@ export default function ThongTinTaiKhoan() {
                   aria-selected="false"
                 >
                   Các khóa học của tôi
+                </a>
+                <a
+                  className="nav-link fs-link"
+                  id="v-pills-profile-tab"
+                  data-toggle="pill"
+                  href="#doimatkhau_tab"
+                  role="tab"
+                  aria-controls="v-pills-profile"
+                  aria-selected="false"
+                >
+                  Đổi mật khẩu
                 </a>
               </div>
             </div>
@@ -176,27 +224,64 @@ export default function ThongTinTaiKhoan() {
                     onChange={handleChange}
                   />
                 </Form.Item>
-                <Form.Item label="Mật khẩu">
+                <div className="col-12 btn-thongtintaikhoan">
+                  <Button htmlType="submit" type="primary" size={"large"}>
+                    Xác nhận
+                  </Button>
+                </div>
+              </Form>
+            </div>
+            <div
+              className="tab-pane fade show"
+              id="doimatkhau_tab"
+              role="tabpanel"
+              aria-labelledby="v-pills-home-tab"
+            >
+              <h2 className="thongtintaikhoan-title text-center">
+                Đổi mật khẩu
+              </h2>
+              <Form
+                labelCol={{ span: 8 }}
+                wrapperCol={{ span: 16 }}
+                layout="horizontal"
+                size={"large"}
+                onFinish={handlePassword}
+              >
+                <Form.Item label="Mật khẩu cũ">
+                  <Input
+                    type="password"
+                    name="matKhau"
+                    value={password}
+                    onChange={handleChange}
+                  />
+                </Form.Item>
+                <Form.Item label="Mật khẩu mới">
+                  <Input
+                    type="password"
+                    name="matKhauMoi1"
+                    value={passwordChange1}
+                    onChange={handleChange}
+                  />
+                </Form.Item>
+                <Form.Item label="Nhập lại mật khẩu mới">
+                  <Input
+                    type="password"
+                    name="matKhauMoi2"
+                    value={passwordChange2}
+                    onChange={handleChange}
+                  />
+                </Form.Item>
+                {/* <Form.Item label="Mật khẩu">
                   <Input
                     type="password"
                     name="matKhau"
                     value={userChange.matKhau}
                     onChange={handleChange}
                   />
-                </Form.Item>
-                {/* <Form.Item label="Chọn người dùng">
-                  <select
-                    name="maLoaiNguoiDung"
-                    value={userChange.maLoaiNguoiDung}
-                    onChange={handleChange}
-                  >
-                    <option value="HV">Học viên</option>
-                    <option value="GV">Giáo vụ</option>
-                  </select>
                 </Form.Item> */}
                 <div className="col-12 btn-thongtintaikhoan">
                   <Button htmlType="submit" type="primary" size={"large"}>
-                    Xác nhận
+                    Đổi mật khẩu
                   </Button>
                 </div>
               </Form>

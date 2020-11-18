@@ -94,7 +94,7 @@ export const layThongTinNguoiDungAction = (taiKhoan, maKhoaHoc) => {
   };
 };
 
-export const nguoiDungChinhSuaAction = (userChange, history) => {
+export const nguoiDungChinhSuaAction = (userChange, history, matKhau) => {
   return async (dispatch) => {
     try {
       const { accessToken } = JSON.parse(localStorage.getItem(USER_LOGIN));
@@ -103,7 +103,7 @@ export const nguoiDungChinhSuaAction = (userChange, history) => {
         method: "put",
         data: {
           taiKhoan: userChange.taiKhoan,
-          matKhau: userChange.matKhau,
+          matKhau: matKhau,
           email: userChange.email,
           soDT: userChange.soDT,
           maLoaiNguoiDung: userChange.maLoaiNguoiDung,
