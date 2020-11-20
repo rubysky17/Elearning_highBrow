@@ -21,8 +21,7 @@ export default function AllCourse() {
   let khoaHocFilter = useSelector(
     (state) => state.KhoaHocReducer.khoaHocFilter
   );
-
-  let khoaHocRender = useSelector((state) => state.KhoaHocReducer.dsKhoaHoc);
+  console.log("khoaHocFilter:", khoaHocFilter);
   return (
     <div className="container mt-4">
       <div className="row d-flex justify-content-center">

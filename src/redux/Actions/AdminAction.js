@@ -324,7 +324,7 @@ export const themKhoaHocUploadHinhAction = (form_data) => {
     try {
       const { accessToken } = JSON.parse(localStorage.getItem(USER_LOGIN));
       let { data, status } = await axios({
-        url: DOMAIN + "api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc",
+        url: DOMAIN + "api/QuanLyKhoaHoc/ThemKhoaHocUploadHinh",
         method: "post",
         data: form_data,
         headers: {
@@ -343,22 +343,40 @@ export const themKhoaHocUploadHinhAction = (form_data) => {
 };
 
 export const themKhoaHocAction = (thongTinKhoaHoc) => {
-  return async (dispatch) => {
+  return async () => {
     try {
       const { accessToken } = JSON.parse(localStorage.getItem(USER_LOGIN));
-      let { data, status } = await axios({
+      axios({
         url: DOMAIN + "api/QuanLyKhoaHoc/ThemKhoaHoc",
-        method: "post",
+        method: "POST",
         data: thongTinKhoaHoc,
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
+      }).then((res) => {
+        let { data, status } = res;
+        var form_data = new FormData();
+        for (var key in thongTinKhoaHoc) {
+          form_data.append(key, thongTinKhoaHoc[key]);
+        }
+        console.log("thành công");
+        axios({
+          url: DOMAIN + "api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc",
+          method: "POST",
+          data: form_data,
+        })
+          .then((res) => {
+            swal("Thành công", "Thêm thành công", "success");
+            console.log(res.data);
+          })
+          .catch((err) => {
+            swal("Thất bại", "Thêm thất bại", "warning");
+            console.log(err.message);
+          });
       });
-      if (status === 200) {
-        console.log(data);
-      }
     } catch (error) {
       console.log(error.message);
+      console.log("Thêm thất bại");
     }
   };
 };

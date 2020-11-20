@@ -85,7 +85,6 @@ export const layKhoaHocTheoSearchAction = (maDanhMuc, setDone) => {
             type: LAY_KHOA_HOC_THEO_SEARCH,
             khoaHocTheoDanhMuc: res.data,
           });
-          setDone(undefined);
         })
         .catch((err) =>
           dispatch({

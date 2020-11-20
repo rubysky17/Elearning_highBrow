@@ -72,18 +72,23 @@ export default function ModalThemKhoaHoc(props) {
     biDanh: "",
     tenKhoaHoc: "",
     moTa: "",
-    luotXem: 0,
+    luotXem: 200,
     danhGia: 0,
     hinhAnh: "",
     maNhom: "GP01",
     ngayTao: new Date("2014-08-18T21:11:54"),
-    maDanhMucKhoaHoc: "",
-    taiKhoanNguoiTao: {
-      taiKhoan: taiKhoan.taiKhoan,
-      hoTen: taiKhoan.hoTen,
-      maLoaiNguoiDung: taiKhoan.maLoaiNguoiDung,
-      tenLoaiNguoiDung: "Giáo vụ",
-    },
+    // danhMucKhoaHoc: {
+    //   maDanhMucKhoahoc: "",
+    //   tenDanhMucKhoaHoc: "",
+    // },
+    maDanhMucKhoahoc: "",
+    // taiKhoanNguoiTao: {
+    //   taiKhoan: taiKhoan.taiKhoan,
+    //   hoTen: taiKhoan.hoTen,
+    //   maLoaiNguoiDung: taiKhoan.maLoaiNguoiDung,
+    //   tenLoaiNguoiDung: "Giáo vụ",
+    // },
+    taiKhoanNguoiTao: taiKhoan.taiKhoan,
   });
   const [selectedDate, setSelectedDate] = React.useState(
     new Date("2014-08-18T21:11:54")
@@ -100,7 +105,15 @@ export default function ModalThemKhoaHoc(props) {
     if (name === "hinhAnh") {
       setthongTinKhoaHoc({
         ...thongTinKhoaHoc,
-        hinhAnh: event.target.files[0],
+        hinhAnh: event.target.files[0].name,
+      });
+    } else if (name === "danhMucKhoaHoc") {
+      setthongTinKhoaHoc({
+        ...thongTinKhoaHoc,
+        danhMucKhoaHoc: {
+          maDanhMucKhoahoc: value[1],
+          tenDanhMucKhoaHoc: value[0],
+        },
       });
     } else {
       setthongTinKhoaHoc({
@@ -111,11 +124,12 @@ export default function ModalThemKhoaHoc(props) {
   };
 
   const handleSubmit = () => {
-    var form_data = new FormData();
-    for (var key in thongTinKhoaHoc) {
-      form_data.append(key, thongTinKhoaHoc[key]);
-    }
-    dispatch(themKhoaHocUploadHinhAction(form_data));
+    console.log(thongTinKhoaHoc);
+    // var form_data = new FormData();
+    // for (var key in thongTinKhoaHoc) {
+    //   form_data.append(key, thongTinKhoaHoc[key]);
+    // }
+    dispatch(themKhoaHocAction(thongTinKhoaHoc));
   };
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -168,14 +182,17 @@ export default function ModalThemKhoaHoc(props) {
             <Select
               labelId="demo-simple-select-outlined-label"
               id="demo-simple-select-outlined"
-              name="maDanhMucKhoaHoc"
+              name="maDanhMucKhoahoc"
               onChange={handleChange}
               label="Chọn danh mục"
-              value={thongTinKhoaHoc.maDanhMucKhoaHoc}
+              value={thongTinKhoaHoc.maDanhMucKhoahoc}
             >
               {danhMucKhoaHoc.map((danhMuc, item) => {
                 return (
-                  <MenuItem value={danhMuc.maDanhMuc}>
+                  <MenuItem
+                    value={danhMuc.maDanhMuc}
+                    // value={[danhMuc.tenDanhMuc, danhMuc.maDanhMuc]}
+                  >
                     {danhMuc.tenDanhMuc}
                   </MenuItem>
                 );
@@ -217,11 +234,11 @@ export default function ModalThemKhoaHoc(props) {
         <Grid item xs={6} className={classes.gridItem}>
           <TextField
             id="outlined-basic"
-            label="Đánh giá"
+            label="Số lượng học viên"
             variant="outlined"
             onChange={handleChange}
-            name="danhGia"
-            value={thongTinKhoaHoc.danhGia}
+            name="soLuongHocVien"
+            value={thongTinKhoaHoc.soLuongHocVien}
           />
         </Grid>
 

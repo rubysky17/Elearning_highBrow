@@ -25,13 +25,11 @@ export default function KhoaHocRender() {
   const danhMucKhoaHoc = useSelector(
     (state) => state.DanhMucReducer.danhMucKhoaHoc
   );
-  const layKhoaHocTheoDanhMuc = (danhMuc, setdone) => {
-    dispatch(layKhoaHocTheoMucAction(danhMuc, setdone));
-  };
   //Lấy khóa học theo danh mục
   const danhSachKhoaHocTheoMuc = useSelector(
     (state) => state.DanhMucReducer.khoaHocTheoDanhMuc
   );
+
   const props = {
     dots: false,
     infinite: false,
@@ -107,15 +105,12 @@ export default function KhoaHocRender() {
           })}
         </div>
       </nav>
-      <div
-        className="tab-content animate__animated animate__zoomIn"
-        id="nav-tabContent"
-      >
+      <div className="tab-content" id="nav-tabContent">
         {danhMucKhoaHoc?.map((danhMuc, index) => {
           let active = index === 0 ? "active" : "";
           return (
             <div
-              className={`tab-pane show ${active}`}
+              className={`tab-pane ${active}`}
               id={`${danhMuc.maDanhMuc}`}
               role="tabpanel"
               aria-labelledby="nav-home-tab"
