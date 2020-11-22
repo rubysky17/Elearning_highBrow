@@ -52,7 +52,7 @@ export default function KhoaHocManager() {
       dispatch(layDanhSachKhoaHocAction());
       setDone(true);
     }, 1800);
-  }, []);
+  }, [done]);
   // action--------------------------------------------------
   //delete
   const deleteCourse = (maKhoaHoc) => {
@@ -223,6 +223,7 @@ export default function KhoaHocManager() {
                     <ModalThemKhoaHoc
                       handleClose={handleClose}
                       taiKhoan={infoUser}
+                      setDone={setDone}
                     />
                   </div>
                 </Fade>

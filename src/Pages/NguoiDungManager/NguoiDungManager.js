@@ -67,7 +67,6 @@ function NguoiDungManager(props) {
     props.values.soDT = "";
     props.values.matKhau = "";
     props.values.email = "";
-    props.values.maNhom = "";
     props.values.maLoaiNguoiDung = "";
   };
   const handleOk = (e) => {
@@ -409,31 +408,6 @@ function NguoiDungManager(props) {
                   <FormHelperText>{props.errors.soDT}</FormHelperText>
                 )}
               </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.maNhom && !!props.errors.maNhom}
-              >
-                <InputLabel>Mã nhóm</InputLabel>
-                <Field
-                  render={({ field }) => (
-                    <Select
-                      displayEmpty
-                      {...field}
-                      name="maNhom"
-                      value={props.values.maNhom}
-                      onChange={props.handleChange}
-                    >
-                      <MenuItem value="GP01">GP01</MenuItem>
-                      <MenuItem value="GP02">GP02</MenuItem>
-                      <MenuItem value="GP03">GP03</MenuItem>
-                    </Select>
-                  )}
-                />
-                {props.touched.maNhom && (
-                  <FormHelperText>{props.errors.maNhom}</FormHelperText>
-                )}
-              </FormControl>
             </Grid>
             <Grid item xs={10} md={10}>
               <FormControl
@@ -593,31 +567,6 @@ function NguoiDungManager(props) {
                   <FormHelperText>{props.errors.soDT}</FormHelperText>
                 )}
               </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.maNhom && !!props.errors.maNhom}
-              >
-                <InputLabel>Mã nhóm</InputLabel>
-                <Field
-                  render={({ field }) => (
-                    <Select
-                      displayEmpty
-                      {...field}
-                      name="maNhom"
-                      value={props.values.maNhom}
-                      onChange={props.handleChange}
-                    >
-                      <MenuItem value="GP01">GP01</MenuItem>
-                      <MenuItem value="GP02">GP02</MenuItem>
-                      <MenuItem value="GP03">GP03</MenuItem>
-                    </Select>
-                  )}
-                />
-                {props.touched.maNhom && (
-                  <FormHelperText>{props.errors.maNhom}</FormHelperText>
-                )}
-              </FormControl>
             </Grid>
             <Grid item xs={10} md={10}>
               <FormControl
@@ -674,7 +623,7 @@ const FormikForm = withFormik({
       matKhau: "",
       hoTen: "",
       soDT: "",
-      maNhom: "",
+      maNhom: "GP12",
       email: "",
       maLoaiNguoiDung: "",
     };
@@ -692,7 +641,6 @@ const FormikForm = withFormik({
     matKhau: Yup.string()
       .required("Không được bỏ trống")
       .min(8, "Có ít nhất 8 ký tự"),
-    maNhom: Yup.string().required("Không được bỏ trống"),
     maLoaiNguoiDung: Yup.string().required("Không được bỏ trống"),
   }),
 })(NguoiDungManager);

@@ -5,9 +5,6 @@ import { NavLink, Redirect } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import swal from "sweetalert";
-//component
-import KhoaHoc from "./KhoaHoc/KhoaHoc";
-import TaiKhoan from "./TaiKhoan/TaiKhoan";
 
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";

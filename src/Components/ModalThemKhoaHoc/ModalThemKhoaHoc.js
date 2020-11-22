@@ -9,24 +9,16 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import "date-fns";
 import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import CloudUploadOutlinedIcon from "@material-ui/icons/CloudUploadOutlined";
-import {
-  MuiPickersUtilsProvider,
-  KeyboardDatePicker,
-} from "@material-ui/pickers";
+
 // dropzone
 import { useDropzone } from "react-dropzone";
 ///import action
-import {
-  themKhoaHocUploadHinhAction,
-  themKhoaHocAction,
-} from "../../redux/Actions/AdminAction";
+import { themKhoaHocAction } from "../../redux/Actions/AdminAction";
 //Styled component
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,6 +59,8 @@ export default function ModalThemKhoaHoc(props) {
   const classes = useStyles();
 
   const taiKhoan = props.taiKhoan;
+  const setDone = props.setDone;
+
   const [thongTinKhoaHoc, setthongTinKhoaHoc] = useState({
     maKhoaHoc: "",
     biDanh: "",
@@ -75,37 +69,17 @@ export default function ModalThemKhoaHoc(props) {
     luotXem: 200,
     danhGia: 0,
     hinhAnh: "",
-    maNhom: "GP01",
-    ngayTao: new Date("2014-08-18T21:11:54"),
-    // danhMucKhoaHoc: {
-    //   maDanhMucKhoahoc: "",
-    //   tenDanhMucKhoaHoc: "",
-    // },
+    maNhom: "GP12",
+    ngayTao: "2014-08-18T21:11:54",
     maDanhMucKhoahoc: "",
-    // taiKhoanNguoiTao: {
-    //   taiKhoan: taiKhoan.taiKhoan,
-    //   hoTen: taiKhoan.hoTen,
-    //   maLoaiNguoiDung: taiKhoan.maLoaiNguoiDung,
-    //   tenLoaiNguoiDung: "Giáo vụ",
-    // },
     taiKhoanNguoiTao: taiKhoan.taiKhoan,
   });
-  const [selectedDate, setSelectedDate] = React.useState(
-    new Date("2014-08-18T21:11:54")
-  );
-  const handleDateChange = (date) => {
-    setthongTinKhoaHoc({
-      ...thongTinKhoaHoc,
-      ngayTao: moment(date).format("DD/MM/yyyy"),
-    });
-    setSelectedDate(date);
-  };
   const handleChange = (event) => {
     const { value, name } = event.target;
     if (name === "hinhAnh") {
       setthongTinKhoaHoc({
         ...thongTinKhoaHoc,
-        hinhAnh: event.target.files[0].name,
+        hinhAnh: event.target.files[0],
       });
     } else if (name === "danhMucKhoaHoc") {
       setthongTinKhoaHoc({
@@ -122,14 +96,14 @@ export default function ModalThemKhoaHoc(props) {
       });
     }
   };
+  const handleClear = () => {
+    setthongTinKhoaHoc("");
+  };
 
   const handleSubmit = () => {
-    console.log(thongTinKhoaHoc);
-    // var form_data = new FormData();
-    // for (var key in thongTinKhoaHoc) {
-    //   form_data.append(key, thongTinKhoaHoc[key]);
-    // }
-    dispatch(themKhoaHocAction(thongTinKhoaHoc));
+    dispatch(themKhoaHocAction(thongTinKhoaHoc, setDone));
+    handleClear();
+    props.handleClose();
   };
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -211,7 +185,7 @@ export default function ModalThemKhoaHoc(props) {
           />
         </Grid>
 
-        <Grid item xs={6} className={classes.gridItem}>
+        <Grid item xs={12} className={classes.gridItem}>
           <TextField
             id="outlined-basic"
             label="Mô tả"
@@ -234,29 +208,12 @@ export default function ModalThemKhoaHoc(props) {
         <Grid item xs={6} className={classes.gridItem}>
           <TextField
             id="outlined-basic"
-            label="Số lượng học viên"
+            label="Đánh giá"
             variant="outlined"
             onChange={handleChange}
-            name="soLuongHocVien"
-            value={thongTinKhoaHoc.soLuongHocVien}
+            name="danhGia"
+            value={+thongTinKhoaHoc.danhGia}
           />
-        </Grid>
-
-        <Grid item xs={6} className={classes.gridItem}>
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
-            <KeyboardDatePicker
-              margin="normal"
-              id="date-picker-dialog"
-              label="Ngày tạo"
-              format="dd/MM/yyyy"
-              name="ngayTao"
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change date",
-              }}
-            />
-          </MuiPickersUtilsProvider>
         </Grid>
         <Grid item xs={12} className={classes.dropzone}>
           <div className="container">

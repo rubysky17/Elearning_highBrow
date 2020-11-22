@@ -145,31 +145,7 @@ function DangKy(props) {
               <FormHelperText>{props.errors.soDT}</FormHelperText>
             )}
           </FormControl>
-          <FormControl
-            fullWidth
-            margin="normal"
-            error={props.touched.maNhom && !!props.errors.maNhom}
-          >
-            <InputLabel>Mã nhóm</InputLabel>
-            <Field
-              render={({ field }) => (
-                <Select
-                  displayEmpty
-                  {...field}
-                  name="maNhom"
-                  value={props.values.maNhom}
-                  onChange={props.handleChange}
-                >
-                  <MenuItem value="GP01">GP01</MenuItem>
-                  <MenuItem value="GP02">GP02</MenuItem>
-                  <MenuItem value="GP03">GP03</MenuItem>
-                </Select>
-              )}
-            />
-            {props.touched.maNhom && (
-              <FormHelperText>{props.errors.maNhom}</FormHelperText>
-            )}
-          </FormControl>
+
           <FormControl fullWidth margin="normal">
             <button className="btn btn-danger p-2" type="submit">
               Đăng ký
@@ -191,7 +167,7 @@ const FormikForm = withFormik({
       matKhau: "",
       hoTen: "",
       soDT: "",
-      maNhom: "",
+      maNhom: "GP12",
       email: "",
     };
   },

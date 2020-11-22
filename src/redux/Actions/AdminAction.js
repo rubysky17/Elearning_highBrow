@@ -18,7 +18,7 @@ import swal from "sweetalert";
 export const layDanhSachNguoiDungAction = () => {
   return async (dispatch) => {
     let { data } = await axios(
-      DOMAIN + "api/QuanLyNguoiDung/LayDanhSachNguoiDung"
+      DOMAIN + "api/QuanLyNguoiDung/LayDanhSachNguoiDung?MaNhom=GP12"
     );
     dispatch({
       type: LAY_DANH_SACH_NGUOI_DUNG,
@@ -319,63 +319,51 @@ export const layDanhSachHocVienKhoaHocAction = (maKhoaHoc) => {
   };
 };
 
-export const themKhoaHocUploadHinhAction = (form_data) => {
-  return async (dispatch) => {
-    try {
-      const { accessToken } = JSON.parse(localStorage.getItem(USER_LOGIN));
-      let { data, status } = await axios({
-        url: DOMAIN + "api/QuanLyKhoaHoc/ThemKhoaHocUploadHinh",
-        method: "post",
-        data: form_data,
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-      if (status === 200) {
-        swal("Thành công", "Thêm thành công", "success");
-        console.log(data);
-      }
-    } catch (error) {
-      swal("Thất bại", "Không thể thêm khóa học", "warning");
-      console.log(error.message);
-    }
-  };
-};
-
-export const themKhoaHocAction = (thongTinKhoaHoc) => {
+export const themKhoaHocAction = (thongTinKhoaHoc, setDone) => {
   return async () => {
     try {
       const { accessToken } = JSON.parse(localStorage.getItem(USER_LOGIN));
       axios({
         url: DOMAIN + "api/QuanLyKhoaHoc/ThemKhoaHoc",
         method: "POST",
-        data: thongTinKhoaHoc,
+        data: {
+          maKhoaHoc: thongTinKhoaHoc.maKhoaHoc,
+          biDanh: thongTinKhoaHoc.biDanh,
+          tenKhoaHoc: thongTinKhoaHoc.tenKhoaHoc,
+          moTa: thongTinKhoaHoc.moTa,
+          luotXem: thongTinKhoaHoc.luotXem,
+          danhGia: thongTinKhoaHoc.danhGia,
+          hinhAnh: thongTinKhoaHoc.hinhAnh.name,
+          maNhom: thongTinKhoaHoc.maNhom,
+          ngayTao: thongTinKhoaHoc.ngayTao,
+          maDanhMucKhoahoc: thongTinKhoaHoc.maDanhMucKhoahoc,
+          taiKhoanNguoiTao: thongTinKhoaHoc.taiKhoanNguoiTao,
+        },
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      }).then((res) => {
-        let { data, status } = res;
-        var form_data = new FormData();
-        for (var key in thongTinKhoaHoc) {
-          form_data.append(key, thongTinKhoaHoc[key]);
-        }
-        console.log("thành công");
-        axios({
-          url: DOMAIN + "api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc",
-          method: "POST",
-          data: form_data,
-        })
-          .then((res) => {
+      })
+        .then((res) => {
+          let { data, status } = res;
+          var form_data = new FormData();
+          for (var key in thongTinKhoaHoc) {
+            form_data.append(key, thongTinKhoaHoc[key]);
+          }
+          axios({
+            url: DOMAIN + "api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc",
+            method: "POST",
+            data: form_data,
+          }).then((res) => {
             swal("Thành công", "Thêm thành công", "success");
             console.log(res.data);
-          })
-          .catch((err) => {
-            swal("Thất bại", "Thêm thất bại", "warning");
-            console.log(err.message);
+            setDone(undefined);
           });
-      });
+        })
+        .catch((err) => {
+          console.log(err.response.data);
+        });
     } catch (error) {
-      console.log(error.message);
+      console.log(error.response.data);
       console.log("Thêm thất bại");
     }
   };

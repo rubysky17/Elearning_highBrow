@@ -31,25 +31,6 @@ export default function AllCourse() {
       </div>
 
       <div>
-        {/* {khoaHocFilter !== null ? (
-          <div className="row d-flex justify-content-center">
-            {khoaHocFilter ? (
-              <div>Khong tim thay ket qua</div>
-            ) : (
-              <>
-                {khoaHocFilter?.map((khoaHoc, index) => {
-                  return <CardKhoaHoc khoaHoc={khoaHoc} key={index} />;
-                })}
-              </>
-            )}
-          </div>
-        ) : (
-          <div className="row d-flex justify-content-center">
-            {khoaHocRender?.map((khoaHoc, index) => {
-              return <CardKhoaHoc khoaHoc={khoaHoc} key={index} />;
-            })}
-          </div>
-        )} */}
         <div className="row d-flex justify-content-center">
           {khoaHocFilter === null || khoaHocFilter.length === 0 ? (
             <h2>Không có kết quả</h2>

@@ -25,7 +25,7 @@ export const layDanhMucKhoaHocAction = () => {
 export const layDanhSachKhoaHocAction = () => {
   return async (dispatch) => {
     let { data } = await axios(
-      "https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01"
+      "https://elearning0706.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP12"
     );
     dispatch({
       type: LAY_DANH_SACH,
@@ -51,7 +51,7 @@ export const layKhoaHocTheoMucAction = (maDanhMuc, setDone) => {
       axios({
         url:
           DOMAIN +
-          `/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=GP01`,
+          `/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=GP12`,
         method: "get",
       })
         .then((res) => {
@@ -77,7 +77,7 @@ export const layKhoaHocTheoSearchAction = (maDanhMuc, setDone) => {
       axios({
         url:
           DOMAIN +
-          `/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=GP01`,
+          `/api/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=GP12`,
         method: "get",
       })
         .then((res) => {
