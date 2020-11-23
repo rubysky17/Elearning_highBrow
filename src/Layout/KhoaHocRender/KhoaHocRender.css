@@ -83,6 +83,14 @@
     color: rgb(122, 122, 122);
 }
 
+@media only screen and (max-width: 1024px) {
+    .cacKhoaHoc {
+        display: flex!important;
+        justify-content: center!important;
+        align-items: center!important;
+    }
+}
+
 @media only screen and (max-width: 400px) {
     .cacKhoaHoc {
         display: flex!important;

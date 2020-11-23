@@ -9,7 +9,7 @@ export default function Footer() {
   return (
     <footer>
       <div className="row footer">
-        <div className="col-xl-3 col-md-4 footer-left">
+        <div className="col-xl-3 col-md-6 footer-left d-lg-block d-md-block d-sm-none d-xs-none d-none">
           <img src={logo} alt={logo} />
           <p>
             HighBrow là nơi học lập trình.
@@ -20,7 +20,7 @@ export default function Footer() {
             chuyên nghiệp tại đây.
           </p>
         </div>
-        <div className="col-xl-5 col-md-5 footer-middle">
+        <div className="col-xl-5 col-md-6 col-sm-12 col-12 footer-middle">
           <div className="row">
             <div className="col-6">
               <p>HighBrow</p>
@@ -54,7 +54,7 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="col-xl-4 col-md-3 footer-right">
+        <div className="col-xl-4  footer-right d-lg-block d-md-none d-sm-none d-none">
           <p>Theo dõi chúng tôi</p>
           <span>
             Nhập email để đăng ký nhận những thông tin hữu ích về học tập từ
