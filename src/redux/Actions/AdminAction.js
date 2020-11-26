@@ -120,7 +120,7 @@ export const searchUserAction = (keyWord, setDone) => {
       axios({
         url:
           DOMAIN +
-          `api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP01&tuKhoa=${keyWord}`,
+          `api/QuanLyNguoiDung/TimKiemNguoiDung?MaNhom=GP12&tuKhoa=${keyWord}`,
         method: "get",
       })
         .then((res) => {
@@ -365,6 +365,60 @@ export const themKhoaHocAction = (thongTinKhoaHoc, setDone) => {
     } catch (error) {
       console.log(error.response.data);
       console.log("Thêm thất bại");
+    }
+  };
+};
+
+export const suaKhoaHocAction = (thongTinKhoaHoc, setDone) => {
+  return async () => {
+    try {
+      const { accessToken } = JSON.parse(localStorage.getItem(USER_LOGIN));
+      axios({
+        url: DOMAIN + "api/QuanLyKhoaHoc/CapNhatKhoaHoc",
+        method: "PUT",
+        data: {
+          maKhoaHoc: thongTinKhoaHoc.maKhoaHoc,
+          biDanh: thongTinKhoaHoc.biDanh,
+          tenKhoaHoc: thongTinKhoaHoc.tenKhoaHoc,
+          moTa: thongTinKhoaHoc.moTa,
+          luotXem: thongTinKhoaHoc.luotXem,
+          danhGia: thongTinKhoaHoc.danhGia,
+          hinhAnh: thongTinKhoaHoc.hinhAnh.name,
+          maNhom: thongTinKhoaHoc.maNhom,
+          ngayTao: thongTinKhoaHoc.ngayTao,
+          maDanhMucKhoahoc: thongTinKhoaHoc.maDanhMucKhoahoc,
+          taiKhoanNguoiTao: thongTinKhoaHoc.taiKhoanNguoiTao,
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+        .then((res) => {
+          let { data, status } = res;
+          var form_data = new FormData();
+          for (var key in thongTinKhoaHoc) {
+            form_data.append(key, thongTinKhoaHoc[key]);
+          }
+          axios({
+            url: DOMAIN + "api/QuanLyKhoaHoc/UploadHinhAnhKhoaHoc",
+            method: "POST",
+            data: form_data,
+          })
+            .then((res) => {
+              swal("Thành công", "Sửa thành công", "success");
+              console.log(res.data);
+              setDone(undefined);
+            })
+            .catch((err) => {
+              swal("Thất bại", "Sửa khóa học thất bại", "warning");
+            });
+        })
+        .catch((err) => {
+          swal("Thất bại", "Sửa khóa học thất bại", "warning");
+        });
+    } catch (error) {
+      console.log(error.response.data);
+      console.log("Sửa thất bại");
     }
   };
 };

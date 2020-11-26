@@ -100,10 +100,30 @@ export const layKhoaHocTheoSearchAction = (maDanhMuc, setDone) => {
 
 export const khoaHocSearchAction = (tuKhoa) => {
   return (dispatch) => {
-    dispatch({
-      type: "LAY_KHOA_HOC_SEARCH",
-      keyWord: tuKhoa,
-    });
+    try {
+      axios({
+        url:
+          DOMAIN +
+          `/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${tuKhoa}&MaNhom=GP12`,
+        method: "get",
+      })
+        .then((res) => {
+          let { data, status } = res;
+          dispatch({
+            type: "LAY_KHOA_HOC_SEARCH",
+            khoaHoc: data,
+            keyWord: tuKhoa,
+          });
+        })
+        .catch((err) =>
+          dispatch({
+            type: LAY_KHOA_HOC_THEO_SEARCH,
+            khoaHocTheoDanhMuc: null,
+          })
+        );
+    } catch (err) {
+      console.log(err.response.data);
+    }
   };
 };
 export const deleteCourseAction = (maKhoaHoc, setDone) => {

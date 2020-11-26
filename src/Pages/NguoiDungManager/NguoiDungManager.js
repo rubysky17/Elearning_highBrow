@@ -1,33 +1,21 @@
 import React, { useEffect, useState } from "react";
+
+// Component and Library
 import SearchNguoiDung from "../../Components/SearchNguoiDung/SearchNguoiDung";
+import ModalNguoiDung from "../../Components/ModalNguoiDung/ModalNguoiDung";
+import ModalSuaNguoiDung from "../../Components/ModalSuaNguoiDung/ModalSuaNguoiDung";
 import { Table, Tag, Space } from "antd";
 import "./NguoiDungManager.css";
 import { NavLink } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import logo from "../../Assets/img/admin.png";
 import { makeStyles } from "@material-ui/core/styles";
 import TabNguoiDungModal from "../../Components/TabNguoiDungModal/TabNguoiDungModal";
 // Modal
 import { Modal } from "antd";
-//Form
-import Input from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
-import InputLabel from "@material-ui/core/InputLabel";
-import Grid from "@material-ui/core/Grid";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
-
-//Thư viện formik
-import { withFormik, Form, Field } from "formik";
-//Thư viện yub (validate form)
-import * as Yup from "yup";
 
 import {
   deleteUserAction,
   layDanhSachNguoiDungAction,
-  addUserAction,
-  editUserAction,
 } from "../../redux/Actions/AdminAction";
 import "./NguoiDungManager.css";
 import Loading from "../../Components/Loading/Loading";
@@ -46,47 +34,32 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function NguoiDungManager(props) {
+export default function NguoiDungManager(props) {
   //Modal add user
   const [visible, setVisible] = React.useState(false);
-  const [status, setStatus] = React.useState(false);
+  //Modal edit
+  const [edit, setedit] = React.useState(false);
+  const [dataEdit, setDataEdit] = useState(null);
+  //Modal course
   const [more, setMore] = React.useState(false);
+  // function show all modal
   const showModal = (status, data) => {
     if (status === 1) {
       setVisible(true);
     } else if (status === 0) {
-      setStatus(true);
+      setedit(true);
     } else if (status === 2) {
       setMore(true);
       setDataModal(data);
     }
   };
-  const resetForm = () => {
-    props.values.taiKhoan = "";
-    props.values.hoTen = "";
-    props.values.soDT = "";
-    props.values.matKhau = "";
-    props.values.email = "";
-    props.values.maLoaiNguoiDung = "";
-  };
-  const handleOk = (e) => {
-    addUser();
-    resetForm();
-  };
-  const handleAccept = (e) => {
-    editUser();
-    resetForm();
-  };
+  // function Close all modal
   const handleCancel = (e) => {
     setVisible(false);
-    setStatus(false);
+    setedit(false);
     setMore(false);
   };
   //---------------------------Reducer-------------------------------------//
-  //Get user Info
-  const nguoiDungInfo = useSelector(
-    (state) => state.NguoiDungReducer.userLocal
-  );
   // Get user List
   const danhSachNguoiDung = useSelector(
     (state) => state.AdminReducer.danhSachNguoiDung
@@ -119,16 +92,20 @@ function NguoiDungManager(props) {
       title: "Họ tên",
       dataIndex: "hoTen",
       key: "hoTen",
+      width: 200,
+      responsive: ["sm"],
     },
     {
       title: "Email",
       dataIndex: "email",
       key: "email",
+      responsive: ["lg"],
     },
     {
       title: "Số điện thoại",
       dataIndex: "soDt",
       key: "soDt",
+      responsive: ["lg"],
     },
     {
       title: "Loại người dùng",
@@ -136,7 +113,10 @@ function NguoiDungManager(props) {
       dataIndex: "maLoaiNguoiDung",
       render: (maLoaiNguoiDung) => (
         <>
-          <Tag color={maLoaiNguoiDung === "HV" ? "red" : "green"}>
+          <Tag
+            color={maLoaiNguoiDung === "HV" ? "red" : "green"}
+            className="d-flex justify-content-center w-50"
+          >
             {maLoaiNguoiDung}
           </Tag>
         </>
@@ -153,7 +133,6 @@ function NguoiDungManager(props) {
       ],
       onFilter: (value, record) => record.maLoaiNguoiDung.indexOf(value) === 0,
     },
-    // record.maLoaiNguoiDung.indexOf(value) === 0,
     {
       title: "Thao tác",
       key: "action",
@@ -163,6 +142,7 @@ function NguoiDungManager(props) {
             className="text-warning"
             onClick={() => {
               showModal(0, text);
+              setDataEdit(text);
             }}
           >
             Sửa
@@ -190,418 +170,81 @@ function NguoiDungManager(props) {
   }
 
   //------------------------------UserAction----------------------------------//
-  //Delete User
+  // Delete User
   const deleteUser = (taiKhoan) => {
     dispatch(deleteUserAction(taiKhoan, setDone));
   };
-  //Edit User
-  const editUser = () => {
-    dispatch(editUserAction(props.values, setDone));
-  };
-  //Add User
-  const addUser = (e) => {
-    dispatch(addUserAction(props.values, setDone));
-  };
   return (
     <div className="container-fluid">
-      <div className="row">
-        <div className="col-lg-3 col-md-12 col-12 p-0 card_admin">
-          <div className="logo_img">
-            <img src={logo} alt="logo" className="img-fluid " />
+      <div className="form_admin">
+        <div className="row">
+          <div className="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 cardItem">
+            <div className="bg-card bg-card1">
+              <div className="bg-text">
+                <h3>45</h3>
+                <span>Bài giảng trực tuyến</span>
+              </div>
+            </div>
           </div>
-          <div className="admin_text">
-            <p className="title d-lg-block d-md-none d-xs-none d-none">
-              Thông tin tài khoản
-            </p>
-            <p>{nguoiDungInfo.taiKhoan}</p>
-            <p className="d-lg-block d-md-none d-xs-none d-none">
-              {nguoiDungInfo.email}
-            </p>
-            <p className="d-lg-block d-md-none d-xs-none d-none">
-              {nguoiDungInfo.soDT}
-            </p>
-            <NavLink to="/" className="btnHome mb-md-5">
-              Về trang chủ
-            </NavLink>
+          <div className="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 cardItem">
+            <div className="bg-card bg-card2">
+              <div className="bg-text">
+                <h3>100</h3>
+                <span>Giảng viên</span>
+              </div>
+            </div>
+          </div>
+          <div className="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 cardItem">
+            <div className="bg-card bg-card3">
+              <div className="bg-text">
+                <h3>5000+</h3>
+                <span>Học viên</span>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="col-9 p-0 form_admin">
-          <div className="row d-flex justify-content-center d-lg-flex d-md-none d-xs-none d-none">
-            <div className="col-4 d-lg-block d-md-none d-xs-none d-none">
-              <div className="bg-card bg-card1">
-                <div className="bg-text">
-                  <h3>45</h3>
-                  <span>Bài giảng trực tuyến</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-4 d-lg-block d-md-none d-xs-none d-none">
-              <div className="bg-card bg-card2">
-                <div className="bg-text">
-                  <h3>100</h3>
-                  <span>Giảng viên</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-4 d-lg-block d-md-none d-xs-none d-none">
-              <div className="bg-card bg-card3">
-                <div className="bg-text">
-                  <h3>5000+</h3>
-                  <span>Học viên</span>
-                </div>
-              </div>
-            </div>
+        <div className="row mt-2 justify-content-center">
+          <div className="col-lg-10">
+            <SearchNguoiDung loading={setDone} />
           </div>
-          <div className="row mt-2 justify-content-center">
-            <div className="col-lg-10">
-              <SearchNguoiDung loading={setDone} />
-            </div>
-            <div className="col-lg-2 justify-content-center d-flex">
-              <button
-                className="btnAddUser"
-                onClick={() => {
-                  showModal(1);
-                }}
-              >
-                Thêm người dùng
-              </button>
-            </div>
+          <div className="col-lg-2 justify-content-center d-flex">
+            <button
+              className="btnAddUser"
+              onClick={() => {
+                showModal(1);
+              }}
+            >
+              Thêm người dùng
+            </button>
           </div>
-          <div className="row w-100 mt-4">
-            {!done ? (
-              <Loading />
-            ) : (
-              <Table
-                columns={columns}
-                dataSource={data}
-                pagination={{
-                  total: data?.length,
-                  pageSize: 5,
-                  hideOnSinglePage: true,
-                }}
-              />
-            )}
-          </div>
+        </div>
+        <div>
+          {!done ? (
+            <Loading />
+          ) : (
+            <Table
+              columns={columns}
+              dataSource={data}
+              pagination={{
+                total: data?.length,
+                pageSize: 7,
+                hideOnSinglePage: true,
+              }}
+            />
+          )}
         </div>
       </div>
-      <Modal
-        title="Thêm người dùng"
+      <ModalNguoiDung
         visible={visible}
-        onOk={handleOk}
-        onCancel={handleCancel}
-        okText="Thêm"
-        cancelText="Hủy bỏ"
-      >
-        <Form onSubmit={addUser}>
-          <Grid container justify="center" alignContent="center">
-            <Grid className="mr-3" item xs={5} md={5}>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.taiKhoan && !!props.errors.taiKhoan}
-              >
-                <InputLabel>Tài khoản</InputLabel>
-                <Field
-                  name="taiKhoan"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      {...field}
-                      value={props.values.taiKhoan}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.taiKhoan && (
-                  <FormHelperText>{props.errors.taiKhoan}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.hoTen && !!props.errors.hoTen}
-              >
-                <InputLabel>Họ tên</InputLabel>
-                <Field
-                  name="hoTen"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      {...field}
-                      name="hoTen"
-                      value={props.values.hoTen}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.hoTen && (
-                  <FormHelperText>{props.errors.hoTen}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.email && !!props.errors.email}
-              >
-                <InputLabel>Email</InputLabel>
-                <Field
-                  name="email"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      {...field}
-                      name="email"
-                      value={props.values.email}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.email && (
-                  <FormHelperText>{props.errors.email}</FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid item xs={5} md={5}>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.matKhau && !!props.errors.matKhau}
-              >
-                <InputLabel>Mật khẩu</InputLabel>
-                <Field
-                  name="matKhau"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      type="password"
-                      {...field}
-                      name="matKhau"
-                      value={props.values.matKhau}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.matKhau && (
-                  <FormHelperText>{props.errors.matKhau}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.soDT && !!props.errors.soDT}
-              >
-                <InputLabel>Số điện thoại</InputLabel>
-                <Field
-                  name="soDT"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      type="phoneNumber"
-                      {...field}
-                      name="soDT"
-                      value={props.values.soDT}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.soDT && (
-                  <FormHelperText>{props.errors.soDT}</FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid item xs={10} md={10}>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={
-                  props.touched.maLoaiNguoiDung &&
-                  !!props.errors.maLoaiNguoiDung
-                }
-              >
-                <InputLabel>Chức danh</InputLabel>
-                <Field
-                  render={({ field }) => (
-                    <Select
-                      displayEmpty
-                      {...field}
-                      name="maLoaiNguoiDung"
-                      value={props.values.maLoaiNguoiDung}
-                      onChange={props.handleChange}
-                    >
-                      <MenuItem value="HV">Học Viên</MenuItem>
-                      <MenuItem value="GV">Giáo Vụ</MenuItem>
-                    </Select>
-                  )}
-                />
-                {props.touched.maLoaiNguoiDung && (
-                  <FormHelperText>
-                    {props.errors.maLoaiNguoiDung}
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-          </Grid>
-        </Form>
-      </Modal>
-      <Modal
-        title="Sửa người dùng"
-        visible={status}
-        onOk={handleAccept}
-        onCancel={handleCancel}
-        okText="Sửa"
-        cancelText="Hủy bỏ"
-      >
-        <Form onSubmit={editUser}>
-          <Grid container justify="center" alignContent="center">
-            <Grid className="mr-3" item xs={5} md={5}>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.taiKhoan && !!props.errors.taiKhoan}
-              >
-                <InputLabel>Tài khoản</InputLabel>
-                <Field
-                  name="taiKhoan"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      {...field}
-                      value={props.values.taiKhoan}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.taiKhoan && (
-                  <FormHelperText>{props.errors.taiKhoan}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.hoTen && !!props.errors.hoTen}
-              >
-                <InputLabel>Họ tên</InputLabel>
-                <Field
-                  name="hoTen"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      {...field}
-                      name="hoTen"
-                      value={props.values.hoTen}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.hoTen && (
-                  <FormHelperText>{props.errors.hoTen}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.email && !!props.errors.email}
-              >
-                <InputLabel>Email</InputLabel>
-                <Field
-                  name="email"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      {...field}
-                      name="email"
-                      value={props.values.email}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.email && (
-                  <FormHelperText>{props.errors.email}</FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid item xs={5} md={5}>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.matKhau && !!props.errors.matKhau}
-              >
-                <InputLabel>Mật khẩu</InputLabel>
-                <Field
-                  name="matKhau"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      type="password"
-                      {...field}
-                      name="matKhau"
-                      value={props.values.matKhau}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.matKhau && (
-                  <FormHelperText>{props.errors.matKhau}</FormHelperText>
-                )}
-              </FormControl>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={props.touched.soDT && !!props.errors.soDT}
-              >
-                <InputLabel>Số điện thoại</InputLabel>
-                <Field
-                  name="soDT"
-                  render={({ field }) => (
-                    <Input
-                      fullWidth
-                      type="phoneNumber"
-                      {...field}
-                      name="soDT"
-                      value={props.values.soDT}
-                      onChange={props.handleChange}
-                    />
-                  )}
-                />
-                {props.touched.soDT && (
-                  <FormHelperText>{props.errors.soDT}</FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-            <Grid item xs={10} md={10}>
-              <FormControl
-                fullWidth
-                margin="normal"
-                error={
-                  props.touched.maLoaiNguoiDung &&
-                  !!props.errors.maLoaiNguoiDung
-                }
-              >
-                <InputLabel>Chức danh</InputLabel>
-                <Field
-                  render={({ field }) => (
-                    <Select
-                      displayEmpty
-                      {...field}
-                      name="maLoaiNguoiDung"
-                      value={props.values.maLoaiNguoiDung}
-                      onChange={props.handleChange}
-                    >
-                      <MenuItem value="HV">Học Viên</MenuItem>
-                      <MenuItem value="GV">Giáo Vụ</MenuItem>
-                    </Select>
-                  )}
-                />
-                {props.touched.maLoaiNguoiDung && (
-                  <FormHelperText>
-                    {props.errors.maLoaiNguoiDung}
-                  </FormHelperText>
-                )}
-              </FormControl>
-            </Grid>
-          </Grid>
-        </Form>
-      </Modal>
+        handleCancel={handleCancel}
+        setDone={setDone}
+      />
+      <ModalSuaNguoiDung
+        visible={edit}
+        dataEdit={dataEdit}
+        handleCancel={handleCancel}
+        setDone={setDone}
+      />
       <Modal
         title="Thông tin khóa học"
         visible={more}
@@ -615,34 +258,3 @@ function NguoiDungManager(props) {
     </div>
   );
 }
-const FormikForm = withFormik({
-  mapPropsToValues() {
-    // Init form field
-    return {
-      taiKhoan: "",
-      matKhau: "",
-      hoTen: "",
-      soDT: "",
-      maNhom: "GP12",
-      email: "",
-      maLoaiNguoiDung: "",
-    };
-  },
-  validationSchema: Yup.object().shape({
-    // Validate form field
-    taiKhoan: Yup.string()
-      .required("Không được bỏ trống")
-      .min(5, "Có ít nhất 5 ký tự"),
-    email: Yup.string().required("Không được bỏ trống").email("Không hợp lệ"),
-    hoTen: Yup.string()
-      .required("Không được bỏ trống")
-      .min(8, "Có ít nhất 8 ký tự"),
-    soDT: Yup.string().required("Không được bỏ trống"),
-    matKhau: Yup.string()
-      .required("Không được bỏ trống")
-      .min(8, "Có ít nhất 8 ký tự"),
-    maLoaiNguoiDung: Yup.string().required("Không được bỏ trống"),
-  }),
-})(NguoiDungManager);
-
-export default FormikForm;

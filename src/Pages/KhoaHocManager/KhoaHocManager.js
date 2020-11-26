@@ -53,10 +53,32 @@ export default function KhoaHocManager() {
       setDone(true);
     }, 1800);
   }, [done]);
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
   // action--------------------------------------------------
   //delete
   const deleteCourse = (maKhoaHoc) => {
     dispatch(deleteCourseAction(maKhoaHoc, setDone));
+  };
+  //Edit course
+  const [courseEdit, setcourseEdit] = useState(null);
+  const editCourse = (khoaHoc) => {
+    // console.log(khoaHoc);
+    setOpen(true);
+    settitle(false);
+    setcourseEdit(khoaHoc);
+  };
+
+  // Add Course
+  const addCourse = () => {
+    setOpen(true);
+    settitle(true);
   };
   //column and data table
   const columns = [
@@ -69,6 +91,7 @@ export default function KhoaHocManager() {
       title: "Người tạo",
       dataIndex: "nguoiTao",
       key: "hoTen",
+      responsive: ["sm"],
       render: (nguoiTao) => (
         <>
           <p color={nguoiTao.hoTen}>{nguoiTao.hoTen}</p>
@@ -79,6 +102,7 @@ export default function KhoaHocManager() {
       title: "Ngày tạo",
       dataIndex: "ngayTao",
       key: "ngayTao",
+      responsive: ["lg"],
     },
     {
       title: "Danh mục",
@@ -95,7 +119,14 @@ export default function KhoaHocManager() {
       key: "action",
       render: (text, record) => (
         <Space size="middle">
-          <a className="text-warning">Sửa</a>
+          <a
+            className="text-warning"
+            onClick={() => {
+              editCourse(text);
+            }}
+          >
+            Sửa
+          </a>
           <a
             className="text-danger"
             onClick={() => {
@@ -143,120 +174,100 @@ export default function KhoaHocManager() {
     },
   }));
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => {
-    setOpen(true);
-  };
-
-  const handleClose = () => {
-    setOpen(false);
-  };
+  const [title, settitle] = useState(true);
   return (
     <div className="container-fluid">
+      <div className="row d-flex justify-content-center">
+        <div className="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 cardItem">
+          <div className="bg-card bg-card1">
+            <div className="bg-text">
+              <h3>45</h3>
+              <span>Bài giảng trực tuyến</span>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 cardItem">
+          <div className="bg-card bg-card2">
+            <div className="bg-text">
+              <h3>100</h3>
+              <span>Giảng viên</span>
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12 cardItem">
+          <div className="bg-card bg-card3">
+            <div className="bg-text">
+              <h3>5000+</h3>
+              <span>Học viên</span>
+            </div>
+          </div>
+        </div>
+      </div>
       <div className="row">
-        <div className="col-3 p-0 card_admin">
-          <div className="dislay-nguoidung">
-            <div className="logo_img">
-              <img src={logo} alt="logo" className="img-fluid " />
-            </div>
-            <div className="admin_text">
-              <p className="title">Thông tin tài khoản</p>
-              <p>{infoUser.taiKhoan}</p>
-              <p>{infoUser.email}</p>
-              <p>{infoUser.soDT}</p>
-              <NavLink to="/" className="btnHome">
-                Về trang chủ
-              </NavLink>
-            </div>
-          </div>
+        <div className="col-lg-10">
+          <Search danhMucKhoaHoc={danhMucKhoaHoc} />
         </div>
-        <div className="col-9 p-0">
-          <div className="row d-flex justify-content-center">
-            <div className="col-4">
-              <div className="bg-card bg-card1">
-                <div className="bg-text">
-                  <h3>45</h3>
-                  <span>Bài giảng trực tuyến</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="bg-card bg-card2">
-                <div className="bg-text">
-                  <h3>100</h3>
-                  <span>Giảng viên</span>
-                </div>
-              </div>
-            </div>
-            <div className="col-4">
-              <div className="bg-card bg-card3">
-                <div className="bg-text">
-                  <h3>5000+</h3>
-                  <span>Học viên</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-10">
-              <Search danhMucKhoaHoc={danhMucKhoaHoc} />
-            </div>
 
-            <div className="col-2 justify-content-center d-flex">
-              <button className="btnAddCourse" onClick={handleOpen}>
-                Thêm khóa học
-              </button>
-              <ModalAddCourse
-                aria-labelledby="transition-modal-title"
-                aria-describedby="transition-modal-description"
-                className={classes.modal}
-                open={open}
-                onClose={handleClose}
-                closeAfterTransition
-                BackdropComponent={Backdrop}
-                BackdropProps={{
-                  timeout: 500,
-                }}
-              >
-                <Fade in={open}>
-                  <div className={classes.paper}>
-                    <ModalThemKhoaHoc
-                      handleClose={handleClose}
-                      taiKhoan={infoUser}
-                      setDone={setDone}
-                    />
-                  </div>
-                </Fade>
-              </ModalAddCourse>
-            </div>
-          </div>
-
-          <div>
-            {!done ? (
-              <Loading />
-            ) : (
-              <Table
-                columns={columns}
-                dataSource={data}
-                pagination={{
-                  total: data?.length,
-                  pageSize: 5,
-                  hideOnSinglePage: true,
-                }}
-              />
-            )}
-            <Modal
-              title="Thông tin khóa học"
-              visible={more}
-              okButtonProps={{ style: { display: "none" } }}
-              onCancel={handleCancel}
-              cancelText="Hủy bỏ"
-              className="modal_course"
-            >
-              <TabKhoaHocModal maKhoaHoc={dataModal} />
-            </Modal>
-          </div>
+        <div className="col-lg-2 justify-content-center d-flex">
+          <button
+            className="btnAddCourse"
+            onClick={() => {
+              addCourse();
+            }}
+          >
+            Thêm khóa học
+          </button>
+          <ModalAddCourse
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={open}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={open}>
+              <div className={classes.paper}>
+                <ModalThemKhoaHoc
+                  title={title}
+                  handleClose={handleClose}
+                  taiKhoan={infoUser}
+                  setDone={setDone}
+                  khoaHoc={courseEdit}
+                />
+              </div>
+            </Fade>
+          </ModalAddCourse>
         </div>
+      </div>
+
+      <div>
+        {!done ? (
+          <Loading />
+        ) : (
+          <Table
+            columns={columns}
+            dataSource={data}
+            pagination={{
+              total: data?.length,
+              pageSize: 5,
+              hideOnSinglePage: true,
+            }}
+          />
+        )}
+        <Modal
+          title="Thông tin khóa học"
+          visible={more}
+          okButtonProps={{ style: { display: "none" } }}
+          onCancel={handleCancel}
+          cancelText="Hủy bỏ"
+          className="modal_course"
+        >
+          <TabKhoaHocModal maKhoaHoc={dataModal} />
+        </Modal>
       </div>
     </div>
   );

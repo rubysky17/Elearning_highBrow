@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "./Benefit.layout.css";
 
 //Image import
@@ -6,7 +6,7 @@ import benefit_icon1 from "../../Assets/img/icon_cup_5.2@2x.png";
 import benefit_icon2 from "../../Assets/img/icon_email_1.1@2x.png";
 import benefit_icon3 from "../../Assets/img/icon_time_3.2@2x.png";
 
-import { motion, useViewportScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 export default function Benefit() {
   return (
     <div className="container text-center my-5">

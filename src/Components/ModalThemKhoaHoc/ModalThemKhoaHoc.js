@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 //import CSS
@@ -18,7 +18,10 @@ import CloudUploadOutlinedIcon from "@material-ui/icons/CloudUploadOutlined";
 // dropzone
 import { useDropzone } from "react-dropzone";
 ///import action
-import { themKhoaHocAction } from "../../redux/Actions/AdminAction";
+import {
+  themKhoaHocAction,
+  suaKhoaHocAction,
+} from "../../redux/Actions/AdminAction";
 //Styled component
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,9 +58,9 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ModalThemKhoaHoc(props) {
   const dispatch = useDispatch();
-
+  const title = props.title;
   const classes = useStyles();
-
+  const khoaHoc = props.khoaHoc;
   const taiKhoan = props.taiKhoan;
   const setDone = props.setDone;
 
@@ -74,6 +77,40 @@ export default function ModalThemKhoaHoc(props) {
     maDanhMucKhoahoc: "",
     taiKhoanNguoiTao: taiKhoan.taiKhoan,
   });
+  useEffect(() => {
+    if (khoaHoc) {
+      setthongTinKhoaHoc({
+        maKhoaHoc: khoaHoc.maKhoaHoc,
+        biDanh: khoaHoc.biDanh,
+        tenKhoaHoc: khoaHoc.tenKhoaHoc,
+        moTa: khoaHoc.moTa,
+        luotXem: 200,
+        danhGia: 0,
+        hinhAnh: "",
+        maNhom: "GP12",
+        ngayTao: khoaHoc.ngayTao,
+        maDanhMucKhoahoc: khoaHoc.maDanhMucKhoahoc,
+        taiKhoanNguoiTao: taiKhoan.taiKhoan,
+      });
+    }
+
+    if (title) {
+      setthongTinKhoaHoc({
+        maKhoaHoc: "",
+        biDanh: "",
+        tenKhoaHoc: "",
+        moTa: "",
+        luotXem: 200,
+        danhGia: 0,
+        hinhAnh: "",
+        maNhom: "GP12",
+        ngayTao: "2014-08-18T21:11:54",
+        maDanhMucKhoahoc: "",
+        taiKhoanNguoiTao: taiKhoan.taiKhoan,
+      });
+    }
+  }, [khoaHoc]);
+
   const handleChange = (event) => {
     const { value, name } = event.target;
     if (name === "hinhAnh") {
@@ -97,13 +134,30 @@ export default function ModalThemKhoaHoc(props) {
     }
   };
   const handleClear = () => {
-    setthongTinKhoaHoc("");
+    setthongTinKhoaHoc({
+      maKhoaHoc: "",
+      biDanh: "",
+      tenKhoaHoc: "",
+      moTa: "",
+      luotXem: 200,
+      danhGia: 0,
+      hinhAnh: "",
+      maNhom: "GP12",
+      ngayTao: "2014-08-18T21:11:54",
+      maDanhMucKhoahoc: "",
+      taiKhoanNguoiTao: taiKhoan.taiKhoan,
+    });
+    props.handleClose();
   };
 
   const handleSubmit = () => {
-    dispatch(themKhoaHocAction(thongTinKhoaHoc, setDone));
-    handleClear();
-    props.handleClose();
+    if (title === true) {
+      dispatch(themKhoaHocAction(thongTinKhoaHoc, setDone));
+      handleClear();
+    } else {
+      dispatch(suaKhoaHocAction(thongTinKhoaHoc, setDone));
+      handleClear();
+    }
   };
 
   const onDrop = useCallback((acceptedFiles) => {
@@ -126,7 +180,9 @@ export default function ModalThemKhoaHoc(props) {
     >
       <Grid container className={classes.grid} spacing={1}>
         <Grid item xs={12} className={classes.title}>
-          <h3>Thêm khóa học</h3>
+          <h3 className="text-center">
+            {title ? "Thêm khóa học" : "Sửa khóa học"}
+          </h3>
         </Grid>
         <Grid item xs={6} className={classes.gridItem}>
           <TextField
@@ -163,10 +219,7 @@ export default function ModalThemKhoaHoc(props) {
             >
               {danhMucKhoaHoc.map((danhMuc, item) => {
                 return (
-                  <MenuItem
-                    value={danhMuc.maDanhMuc}
-                    // value={[danhMuc.tenDanhMuc, danhMuc.maDanhMuc]}
-                  >
+                  <MenuItem value={danhMuc.maDanhMuc}>
                     {danhMuc.tenDanhMuc}
                   </MenuItem>
                 );
@@ -221,7 +274,6 @@ export default function ModalThemKhoaHoc(props) {
             <div className="dropzone_css">
               <CloudUploadOutlinedIcon />
               <input
-                // {...getInputProps()}
                 type="file"
                 onChange={handleChange}
                 name="hinhAnh"
@@ -239,14 +291,16 @@ export default function ModalThemKhoaHoc(props) {
               handleSubmit();
             }}
           >
-            Thêm khóa học
+            {title ? "Thêm khóa học" : "Sửa khóa học"}
           </Button>
         </Grid>
         <Grid item xs={6} className={classes.gridItem}>
           <Button
             variant="contained"
             color="secondary"
-            onClick={props.handleClose}
+            onClick={() => {
+              handleClear();
+            }}
           >
             Thoát
           </Button>

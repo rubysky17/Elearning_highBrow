@@ -1,5 +1,6 @@
 .app {
     font-family: open-sans;
+    overflow: hidden;
 }
 
 /* width */

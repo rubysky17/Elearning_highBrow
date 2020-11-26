@@ -9,8 +9,6 @@ import { searchUserAction } from "../../redux/Actions/AdminAction";
 
 import { useDispatch } from "react-redux";
 
-import "./SearchNguoiDung.css";
-
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: "2px 4px",

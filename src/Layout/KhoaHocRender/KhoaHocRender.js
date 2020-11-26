@@ -38,6 +38,8 @@ export default function KhoaHocRender() {
     arrows: true,
     nextArrow: <ArrowForwardIosOutlinedIcon />,
     prevArrow: <ArrowBackIosOutlinedIcon />,
+    draggable: true,
+    variableWidth: true,
     responsive: [
       {
         breakpoint: 1024,

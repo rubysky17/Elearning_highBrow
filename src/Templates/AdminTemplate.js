@@ -25,9 +25,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     display: "flex",
     backgroundImage: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
-    height: "100%",
-    width: "100%",
-    position: "fixed",
+    height: "100vh",
+    width: "100vw",
+    overflowY: "scroll",
   },
   appBar: {
     transition: theme.transitions.create(["margin", "width"], {

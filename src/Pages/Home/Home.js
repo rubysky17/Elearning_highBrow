@@ -8,7 +8,6 @@ import "./Home.css";
 import {
   layDanhMucKhoaHocAction,
   layDanhSachKhoaHocAction,
-  layKhoaHocTheoMucAction,
 } from "../../redux/Actions/KhoaHocActions";
 import GioiThieu from "../../Layout/GioiThieu/GioiThieu";
 import Socialproof from "../../Layout/SocialProof/SocialProof";

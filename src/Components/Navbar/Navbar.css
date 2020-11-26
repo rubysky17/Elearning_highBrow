@@ -1,3 +1,7 @@
+.navbar-width {
+    width: 100vw;
+}
+
 .navbar {
     height: 90px;
     position: sticky;
@@ -70,17 +74,6 @@
     display: none;
     z-index: 10;
 }
-
-/* 
-.nguoidung-info::after {
-    content: "";
-    width: 150%;
-    height: 50px;
-    position: absolute;
-    background-color: rebeccapurple;
-    top: 80%;
-    z-index: 10;
-} */
 
 .option-nguoidung:hover {
     color: black;

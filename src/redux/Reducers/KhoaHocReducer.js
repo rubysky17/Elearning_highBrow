@@ -34,10 +34,7 @@ export const KhoaHocReducer = (state = initialState, action) => {
       if (action.keyWord === "") {
         state.khoaHocFilter = state.dsKhoaHoc;
       } else {
-        let dsKhoaHocMoi = [...state.dsKhoaHoc];
-        state.khoaHocFilter = dsKhoaHocMoi.filter(
-          (kh) => kh.tenKhoaHoc.toLowerCase() === action.keyWord.toLowerCase()
-        );
+        state.khoaHocFilter = action.khoaHoc;
       }
       return { ...state };
     }

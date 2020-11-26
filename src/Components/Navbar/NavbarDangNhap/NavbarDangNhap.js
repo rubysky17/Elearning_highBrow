@@ -1,7 +1,5 @@
 import React, { Fragment } from "react";
 import { NavLink } from "react-router-dom";
-import { USER_LOGIN } from "../../../Ultity/ConfigWeb";
-
 export default function NavbarDangNhap() {
   return (
     <Fragment>

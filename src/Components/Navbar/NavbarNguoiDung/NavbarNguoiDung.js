@@ -1,8 +1,7 @@
-import React, { Fragment } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { USER_LOGIN, TOKEN } from "../../../Ultity/ConfigWeb";
 import { useDispatch, useSelector } from "react-redux";
-import swal from "sweetalert";
 import { dangXuatTaiKhoanAction } from "../../../redux/Actions/NguoiDungActions";
 export default function NavbarNguoiDung() {
   const dispatch = useDispatch();

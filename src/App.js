@@ -1,15 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import "./App.css";
 import Home from "../src/Pages/Home/Home";
 import TatCaKhoaHoc from "./Pages/TatCaKhoaHoc/TatCaKhoaHoc";
 import { HomeTemplate } from "./Templates/HomeTemplate";
 import { AdminTemplate } from "./Templates/AdminTemplate";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import ChiTietKhoaHoc from "./Pages/ChiTietKhoaHoc/ChiTietKhoaHoc";
 import DangKy from "./Pages/DangKy/DangKy";
 import DangNhap from "./Pages/DangNhap/DangNhap";

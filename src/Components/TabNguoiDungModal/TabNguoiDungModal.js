@@ -14,7 +14,6 @@ import {
   layKhoaHocChoXetDuyetAction,
   layKhoaHocDaXetDuyetAction,
 } from "../../redux/Actions/AdminAction";
-import KhoaHocChuaXetDuyet from "./KhoaHocChuaXetDuyet/KhoaHocChuaXetDuyet";
 import Loading from "../Loading/Loading";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
