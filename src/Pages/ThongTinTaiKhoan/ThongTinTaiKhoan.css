@@ -40,6 +40,10 @@
     margin: 0 auto;
 }
 
+.main-wrapper {
+    height: 60vh;
+}
+
 @media only screen and (max-width: 768px) {
     .fs-link {
         font-size: 18px!important;

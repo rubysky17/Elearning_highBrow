@@ -120,7 +120,7 @@ export default function ThongTinTaiKhoan() {
   const bull = <span className={classes.bullet}>•</span>;
 
   return (
-    <div className="container">
+    <div className="container main-wrapper">
       <div className="row">
         <div className="col-lg-4 col-md-4 col-sm-12 col-12">
           <div className="row">
@@ -268,14 +268,6 @@ export default function ThongTinTaiKhoan() {
                     onChange={handleChange}
                   />
                 </Form.Item>
-                {/* <Form.Item label="Mật khẩu">
-                  <Input
-                    type="password"
-                    name="matKhau"
-                    value={userChange.matKhau}
-                    onChange={handleChange}
-                  />
-                </Form.Item> */}
                 <div className="col-12 btn-thongtintaikhoan">
                   <Button htmlType="submit" type="primary" size={"large"}>
                     Đổi mật khẩu
@@ -301,9 +293,9 @@ export default function ThongTinTaiKhoan() {
                         to="/tatcakhoahoc"
                         className="d-flex justify-content-center mt-5"
                       >
-                        <button className="btn btn success">
+                        <Button type="primary" size={"large"}>
                           Chọn khóa học
-                        </button>
+                        </Button>
                       </NavLink>
                     </div>
                   ) : (

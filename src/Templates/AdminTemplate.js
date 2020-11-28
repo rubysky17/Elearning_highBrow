@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Fragment } from "react";
 import "./AdminTemplate.css";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route } from "react-router-dom";
 import clsx from "clsx";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
@@ -13,11 +14,16 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
+import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
+import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
 import MailIcon from "@material-ui/icons/Mail";
+
+import { dangXuatTaiKhoanAction } from "../redux/Actions/NguoiDungActions";
+import { USER_LOGIN, TOKEN } from "../Ultity/ConfigWeb";
 
 const drawerWidth = 240;
 
@@ -45,6 +51,7 @@ const useStyles = makeStyles((theme) => ({
   },
   menuButton: {
     marginRight: theme.spacing(2),
+    display: "flex",
   },
   hide: {
     display: "none",
@@ -80,9 +87,14 @@ const useStyles = makeStyles((theme) => ({
     }),
     marginLeft: 0,
   },
+  iconUser: {
+    fontSize: 35,
+    marginRight: 8,
+  },
 }));
 
 export const AdminTemplate = ({ Component, ...restProps }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -94,7 +106,12 @@ export const AdminTemplate = ({ Component, ...restProps }) => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-
+  const dangXuatTaiKhoan = () => {
+    localStorage.removeItem(USER_LOGIN);
+    localStorage.removeItem(TOKEN);
+    dispatch(dangXuatTaiKhoanAction());
+  };
+  const nguoiDung = JSON.parse(localStorage.getItem(USER_LOGIN));
   return (
     <Route
       {...restProps}
@@ -108,19 +125,27 @@ export const AdminTemplate = ({ Component, ...restProps }) => {
                 [classes.appBarShift]: open,
               })}
             >
-              <Toolbar>
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  onClick={handleDrawerOpen}
-                  edge="start"
-                  className={clsx(classes.menuButton, open && classes.hide)}
-                >
-                  <MenuIcon />
-                </IconButton>
-                <Typography variant="h6" noWrap>
-                  Bảng điều khiển
-                </Typography>
+              <Toolbar className="d-flex justify-content-between">
+                <div className="d-flex align-items-center">
+                  <IconButton
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    className={clsx(classes.menuButton, open && classes.hide)}
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography variant="h6" noWrap>
+                    Bảng điều khiển
+                  </Typography>
+                </div>
+                <div className="d-flex align-items-center">
+                  <AccountCircleTwoToneIcon className={classes.iconUser} />
+                  <Typography variant="h6" noWrap>
+                    {nguoiDung.taiKhoan}
+                  </Typography>
+                </div>
               </Toolbar>
             </AppBar>
             <Drawer
@@ -157,6 +182,19 @@ export const AdminTemplate = ({ Component, ...restProps }) => {
                       <InboxIcon />
                     </ListItemIcon>
                     <ListItemText primary="Quản lý khóa học" />
+                  </ListItem>
+                </NavLink>
+                <NavLink
+                  to="/"
+                  onClick={() => {
+                    dangXuatTaiKhoan();
+                  }}
+                >
+                  <ListItem button>
+                    <ListItemIcon>
+                      <ExitToAppOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Đăng xuất" />
                   </ListItem>
                 </NavLink>
               </List>
