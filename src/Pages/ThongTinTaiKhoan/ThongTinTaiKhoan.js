@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import { Select } from "antd";
-import { NavLink, Redirect } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import swal from "sweetalert";
 
 import { makeStyles } from "@material-ui/core/styles";

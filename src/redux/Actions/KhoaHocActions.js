@@ -108,7 +108,7 @@ export const khoaHocSearchAction = (tuKhoa) => {
         method: "get",
       })
         .then((res) => {
-          let { data, status } = res;
+          let { data } = res;
           dispatch({
             type: "LAY_KHOA_HOC_SEARCH",
             khoaHoc: data,

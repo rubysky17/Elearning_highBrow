@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React from "react";
 import "./AdminTemplate.css";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, Route } from "react-router-dom";
@@ -13,14 +13,15 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
+import PeopleAltOutlinedIcon from "@material-ui/icons/PeopleAltOutlined";
 import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import AccountCircleTwoToneIcon from "@material-ui/icons/AccountCircleTwoTone";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import ExitToAppOutlinedIcon from "@material-ui/icons/ExitToAppOutlined";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
 
 import { dangXuatTaiKhoanAction } from "../redux/Actions/NguoiDungActions";
 import { USER_LOGIN, TOKEN } from "../Ultity/ConfigWeb";
@@ -171,7 +172,7 @@ export const AdminTemplate = ({ Component, ...restProps }) => {
                 <NavLink to="/admin/nguoidungmanager">
                   <ListItem button>
                     <ListItemIcon>
-                      <MailIcon />
+                      <PeopleAltOutlinedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Quản lý người dùng" />
                   </ListItem>
@@ -182,6 +183,14 @@ export const AdminTemplate = ({ Component, ...restProps }) => {
                       <InboxIcon />
                     </ListItemIcon>
                     <ListItemText primary="Quản lý khóa học" />
+                  </ListItem>
+                </NavLink>
+                <NavLink to="/">
+                  <ListItem button>
+                    <ListItemIcon>
+                      <HomeOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Trở về trang chủ" />
                   </ListItem>
                 </NavLink>
                 <NavLink

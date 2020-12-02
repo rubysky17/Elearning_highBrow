@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 // Modal
 import { Modal } from "antd";
@@ -15,7 +15,7 @@ import { withFormik, Form, Field } from "formik";
 //Thư viện yub (validate form)
 import * as Yup from "yup";
 
-import { addUserAction, editUserAction } from "../../redux/Actions/AdminAction";
+import { addUserAction } from "../../redux/Actions/AdminAction";
 
 function ModalNguoiDung(props) {
   const dispatch = useDispatch();

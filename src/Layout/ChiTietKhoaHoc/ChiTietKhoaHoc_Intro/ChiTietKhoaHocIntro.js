@@ -6,7 +6,6 @@ import "./ChiTietKhoaHoc.Intro.css";
 
 import ava from "../../../Assets/img/joe-86x86.jpg";
 import { ExclamationCircleOutlined, GlobalOutlined } from "@ant-design/icons";
-import { Card } from "antd";
 
 export default function ChiTietKhoaHocIntro(props) {
   let { chiTietKhoaHoc } = props;

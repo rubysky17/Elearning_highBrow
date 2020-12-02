@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
-//IMG
-import logo from "../../Assets/img/admin.png";
 
 //Component
 import Search from "../../Components/Search/Search";

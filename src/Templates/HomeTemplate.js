@@ -4,7 +4,7 @@ import { Route, Redirect } from "react-router-dom";
 import Navbar from "../Components/Navbar/Navbar";
 import Footer from "../Components/Footer/Footer";
 import ThongTinTaiKhoan from "../Pages/ThongTinTaiKhoan/ThongTinTaiKhoan";
-import DangNhap from "../Pages/DangNhap/DangNhap";
+
 import { USER_LOGIN } from "../Ultity/ConfigWeb";
 
 export const HomeTemplate = ({ Component, ...restProps }) => {

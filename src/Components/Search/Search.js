@@ -57,8 +57,6 @@ export default function Search(props) {
   const layDanhSachKhoaHoc = () => {
     dispatch(layDanhSachKhoaHocAction());
   };
-  //state lưu trữ hết tất cả khóa học
-  const Course = useSelector((state) => state.KhoaHocReducer.dsKhoaHoc);
   const handleClose = (event) => {
     if (anchorRef.current && anchorRef.current.contains(event.target)) {
       return;

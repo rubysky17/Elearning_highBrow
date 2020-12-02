@@ -41,12 +41,7 @@ export default function SearchNguoiDung(props) {
   const handleToggle = () => {
     setOpen((prevOpen) => !prevOpen);
   };
-  const handleClose = (event) => {
-    if (anchorRef.current && anchorRef.current.contains(event.target)) {
-      return;
-    }
-    setOpen(false);
-  };
+
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(searchUserAction(tuKhoa, props.loading));
